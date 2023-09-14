@@ -1,4 +1,3 @@
-![ac](https://raw.githubusercontent.com/resuther/assettopidash/main/const/icon.png)
 # assettopidash ![ac](https://raw.githubusercontent.com/resuther/assettopidash/main/const/icon.png)
 
 A complete dashboard for Assetto Corsa and Assetto Corsa Competizione built on a Raspberry Pi using Python and Iko Reins [Telemetry Tool for ACC 13.1](https://www.racedepartment.com/downloads/telemetry-tool-for-acc.34563/).
