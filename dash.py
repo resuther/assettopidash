@@ -6,6 +6,8 @@ import math
 import time
 import json
 
+IP = "REPLACE THIS"
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 GPIO.setup(8,GPIO.OUT)
@@ -75,7 +77,7 @@ def paused():
     blank_pins()
     while True:
         try:
-            response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=2)
+            response = requests.get((IP), timeout=2)
         except requests.exceptions.Timeout:
             while True:
                 #idle()
@@ -83,7 +85,7 @@ def paused():
                 digdisp(digitclr)
                 digdisp2(digitclr)
                 try:
-                    response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                    response = requests.get((IP), timeout=0.5)
                 except requests.exceptions.Timeout:
                     continue
                 except requests.exceptions.ConnectionError:
@@ -97,14 +99,14 @@ def paused():
                 digdisp(digitclr)
                 digdisp2(digitclr)
                 try:
-                    response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                    response = requests.get((IP), timeout=0.5)
                 except requests.exceptions.Timeout:
                     continue
                 else:
                     break
         time.sleep(1)
         try:
-            compare = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=2)
+            compare = requests.get((IP, timeout=2)
         except requests.exceptions.Timeout:
             while True:
                 #idle()
@@ -112,7 +114,7 @@ def paused():
                 digdisp(digitclr)
                 digdisp2(digitclr)
                 try:
-                    compare = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                    compare = requests.get((IP), timeout=0.5)
                 except requests.exceptions.Timeout:
                     continue
                 except requests.exceptions.ConnectionError:
@@ -126,7 +128,7 @@ def paused():
                 digdisp(digitclr)
                 digdisp2(digitclr)
                 try:
-                    compare = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                    compare = requests.get((IP), timeout=0.5)
                 except requests.exceptions.Timeout:
                     continue
                 else:
@@ -342,7 +344,7 @@ compare = requests.get('https://raw.githubusercontent.com/resuther/assettodash/m
 
 while True:
     try:
-        response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=2)
+        response = requests.get((IP), timeout=2)
     except requests.exceptions.Timeout:
         while True:
             #idle()
@@ -350,7 +352,7 @@ while True:
             digdisp(off)
             digdisp2(off)
             try:
-                response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                response = requests.get((IP), timeout=0.5)
             except requests.exceptions.Timeout:
                 continue
             except requests.exceptions.ConnectionError:
@@ -365,7 +367,7 @@ while True:
             digdisp(off)
             digdisp2(off)
             try:
-                response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket', timeout=0.5)
+                response = requests.get((IP), timeout=0.5)
             except requests.exceptions.Timeout:
                 continue
             else:
@@ -558,7 +560,7 @@ while True:
     if revper >= 99:
         lights = 1
         while revper >= 99:
-            response = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket')
+            response = requests.get((IP))
             maxrev = response.json()['MaxRevs']
             rpm = response.json()['EngineRevs']
             revper = (rpm) / (maxrev) * 100
@@ -581,7 +583,7 @@ while True:
                 break
     count += 1
     if count == 10:
-        compare = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket')
+        compare = requests.get((IP))
         r1 = oldres.json()
         r2 = compare.json()
         if r1 == r2:
