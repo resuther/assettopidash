@@ -5,7 +5,7 @@ A complete dashboard for Assetto Corsa and Assetto Corsa Competizione built on a
 
 ### Recommended Requirements
 1. Raspberry Pi 4B
-2. 2x Small Breadboard
+2. 2x Mini Breadboard
 3. 2x 7 Segment displays
 4. 8x LEDS (one RGB)
 5. 10x 1kΩ resistors
