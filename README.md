@@ -9,8 +9,9 @@ A complete dashboard for Assetto Corsa and Assetto Corsa Competizione built on a
 4. 8x LEDS (one RGB)
 5. 10x 1kΩ resistors
 
-### Wiring [(click here for to zoom)](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb.png)
+### Wiring 
 ![wirediagram](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb_scaled.png)
+[(click here for to zoom)](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb.png)
 
 ### Startup
 Download [Telemetry Tool for ACC 13.1](https://www.racedepartment.com/downloads/telemetry-tool-for-acc.34563/) and start ACC or AC relay And the java app. Then download dash.py onto your Raspberry Pi and replace IP with the IP Address and port found in Telemetry tool. Run dash.py and then start ACC or AC. 
