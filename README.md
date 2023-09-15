@@ -9,7 +9,7 @@ A complete dashboard for Assetto Corsa and Assetto Corsa Competizione built on a
 4. 8x LEDS (one RGB)
 5. 10x 1kΩ resistors
 
-### Wiring
+### Wiring [(click here for to zoom)](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb.png)
 ![wirediagram](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb_scaled.png)
 
 ### Startup
