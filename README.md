@@ -18,3 +18,4 @@ Download [Telemetry Tool for ACC 13.1](https://www.racedepartment.com/downloads/
 [(click here to zoom)](https://raw.githubusercontent.com/resuther/assettopidash/main/resources/dash_bb.png)
 
 ### Gallery
+![dash](https://raw.githubusercontent.com/resuther/assettopidash/main/resources/dash.png)
