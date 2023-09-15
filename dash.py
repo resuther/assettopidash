@@ -4,9 +4,9 @@ import time
 import RPi.GPIO as GPIO
 import math
 import time
-import json
 
-IP = "REPLACE THIS"
+# example ip
+IP = ("http://127.0.0.1:8002/JSON/telemetrypacket")
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
@@ -106,7 +106,7 @@ def paused():
                     break
         time.sleep(1)
         try:
-            compare = requests.get((IP, timeout=2)
+            compare = requests.get((IP), timeout=2)
         except requests.exceptions.Timeout:
             while True:
                 #idle()
@@ -335,12 +335,33 @@ def startdisp():
     digdisp2(off)
     time.sleep(0.2)
 
+def revdown():
+    GPIO.output(12,GPIO.HIGH)
+    GPIO.output(10,GPIO.HIGH)
+    GPIO.output(8,GPIO.HIGH)
+    GPIO.output(5,GPIO.HIGH)
+    GPIO.output(3,GPIO.HIGH)
+    time.sleep(0.09)
+    GPIO.output(5,GPIO.HIGH)
+    GPIO.output(8,GPIO.HIGH)
+    GPIO.output(10,GPIO.LOW)
+    time.sleep(0.03)
+    GPIO.output(5,GPIO.LOW)
+    GPIO.output(8,GPIO.LOW)
+    time.sleep(0.03)
+    GPIO.output(12,GPIO.HIGH)
+    GPIO.output(3,GPIO.HIGH)
+    GPIO.output(13,GPIO.LOW)
+    time.sleep(0.02)
+    GPIO.output(12,GPIO.LOW)
+    GPIO.output(3,GPIO.LOW)
+
 start = 1
 blights = 1
 lights = 1
 count = 0
-oldres = requests.get('https://github.com/resuther/assettodash/blob/main/oldres.json')
-compare = requests.get('https://raw.githubusercontent.com/resuther/assettodash/main/compare.json')
+oldres = requests.get('https://github.com/resuther/assettopidash/blob/2b9f07ddfa07389a9f409b2875c8eca1bd943184/resources/oldres.json')
+compare = requests.get('https://github.com/resuther/assettopidash/blob/2b9f07ddfa07389a9f409b2875c8eca1bd943184/resources/compare.json')
 
 while True:
     try:
@@ -377,9 +398,9 @@ while True:
         digdisp(digitclr)
         digdisp2(digitclr)
         starter()
-        time.sleep(0.5)
+        time.sleep(0.2)
         starter()
-        time.sleep(0.5)
+        time.sleep(0.2)
         starter()
         startdisp()
         start = 0
@@ -399,11 +420,11 @@ while True:
     speed = (kmh) / (maxspeed) * 100
     temp = t1 + t2 + t3 + t4
     avgtemp = (temp / 4)
-    if avgtemp > 65:
+    if avgtemp > 95:
         GPIO.output(16,GPIO.HIGH)
-    if avgtemp < 65:
+    if avgtemp < 95:
         GPIO.output(16,GPIO.LOW)
-    if flag == 1:
+    if flag != 0:
         GPIO.output(18,GPIO.HIGH)
     if flag == 0:
         GPIO.output(18,GPIO.LOW)
@@ -558,13 +579,15 @@ while True:
             lights = 0
             #GPIO.output(10,GPIO.LOW)
     if revper >= 99:
+        g1 = response.json()['Gear']
         lights = 1
-        while revper >= 99:
+        while True:
             response = requests.get((IP))
+            g2 = response.json()['Gear']
             maxrev = response.json()['MaxRevs']
             rpm = response.json()['EngineRevs']
+            brake = response.json()['BrakePercentage']
             revper = (rpm) / (maxrev) * 100
-            count += 1
             GPIO.output(8,GPIO.HIGH)
             GPIO.output(10,GPIO.HIGH)
             GPIO.output(12,GPIO.HIGH)
@@ -577,17 +600,28 @@ while True:
             GPIO.output(3,GPIO.LOW)
             GPIO.output(5,GPIO.LOW)
             time.sleep(0.1)
+            if brake > 3:
+                lights = 0
+                break
+            if g1 != g2:
+                lights = 0
+                break
             if revper < 97:
-                break
-            if count == 10:
-                break
+                if g1 == g2:
+                    if brake < 20:
+                        revdown()
+                        lights = 0
+                        break
+                else:
+                    lights = 0
+                    break
     count += 1
     if count == 10:
-        compare = requests.get((IP))
+        compare = requests.get(IP)
         r1 = oldres.json()
         r2 = compare.json()
         if r1 == r2:
             paused()
         count = 0
         if count == 0:
-            oldres = requests.get('http://192.168.1.96:8002/JSON/telemetrypacket')
+            oldres = requests.get((IP))
