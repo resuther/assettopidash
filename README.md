@@ -11,6 +11,7 @@ A complete dashboard for Assetto Corsa and Assetto Corsa Competizione built on a
 
 ### Wiring 
 ![wirediagram](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb_scaled.png)
+
 [(click here for to zoom)](https://raw.githubusercontent.com/resuther/assettopidash/main/const/dash_bb.png)
 
 ### Startup
